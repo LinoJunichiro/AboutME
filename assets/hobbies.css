@@ -1,0 +1,182 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Bebas Neue", sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+}
+
+/* Layout variables */
+:root {
+    --nav-height: 60px;
+}
+
+/* reserve space for the fixed navigation so content doesn't sit underneath it */
+body {
+    padding-top: var(--nav-height);
+}
+
+/* Video background container */
+.video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0; /* behind page content */
+    pointer-events: none; /* allow clicks through video */
+}
+
+/* Video should cover the viewport while preserving aspect ratio */
+#bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    -o-object-fit: cover;
+    pointer-events: none;
+}
+
+/* Overlay between video and page content to improve contrast */
+.video-overlay {
+    position: fixed;
+    inset: 0; /* top:0; right:0; bottom:0; left:0; */
+    background: linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.22));
+    z-index: 1; /* sits above the video (z-index:0) and below content (z-index:2) */
+    pointer-events: none;
+}
+
+/* Ensure main content and navigation sit above the video */
+.navigation,
+.main,
+.content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Accessible helper: visually hidden but available to screen readers */
+.visually-hidden {
+    position: absolute !important;
+    height: 1px; width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap; /* added line */
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 60px);
+}
+
+.navigation {
+    /* glass/window effect: translucent background with blur (backdrop-filter) */
+    background: rgba(110, 83, 185, 0.18); /* soft tinted translucent fallback */
+    -webkit-backdrop-filter: blur(6px) saturate(120%);
+    backdrop-filter: blur(6px) saturate(120%);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    padding: 8px 18px;
+    /* make navigation fixed to top */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--nav-height);
+    align-items: center;
+    z-index: 4; /* above overlay and content */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.navigation button {
+    color: #fff;
+    font-size: 18px;
+    padding: 10px 18px;
+    margin: 0 18px;
+    background: rgba(255,255,255,0.06); /* translucent button */
+    -webkit-backdrop-filter: blur(6px) saturate(110%);
+    backdrop-filter: blur(6px) saturate(110%);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 999px; /* pill shape */
+    cursor: pointer;
+    transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+.navigation button:hover,
+.navigation button:focus {
+    transform: translateY(-3px) scale(1.02);
+    background: rgba(255,255,255,0.12);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.16);
+    outline: none;
+}
+
+.navigation button:active {
+    transform: translateY(-1px) scale(0.995);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+/* Keyboard focus visible state */
+.navigation button:focus-visible {
+    box-shadow: 0 0 0 3px rgba(110,83,185,0.18), 0 8px 22px rgba(0,0,0,0.12);
+}
+
+@media (max-width: 600px) {
+    .navigation button { margin: 0 10px; padding: 8px 12px; font-size: 16px; }
+}
+
+.content {  
+    max-width: 800px;
+    width: 90%;
+    padding: 40px;
+    margin: 50px auto;
+    /* glass card style for content */
+    background: rgba(255, 255, 255, 0.55); /* translucent white for readable content */
+    -webkit-backdrop-filter: blur(6px) saturate(120%);
+    backdrop-filter: blur(6px) saturate(120%);
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.35);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Respect users who prefer reduced motion: hide/disable heavy visual effects */
+@media (prefers-reduced-motion: reduce) {
+    .video-bg { display: none; }
+    .navigation, .content { -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+
+/* Mobile / small-screen fallback: hide video to save bandwidth and use poster as background */
+@media (max-width: 600px) {
+    .video-bg,
+    .video-overlay { display: none; }
+    /* Use a poster image as the page background on small screens */
+    body {
+        background-image: url('../assets/poster.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+    /* Slightly increase card opacity on small screens for readability */
+    .content { background: rgba(255,255,255,0.78); }
+}
+
+.content h1 {
+    font-size: 36px;
+    margin-bottom: 0.1px;
+}
+
+.content p {
+    font-size: 18px;
+    color: #555;
+}

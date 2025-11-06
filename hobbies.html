@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hobbies</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="assets/Lucy.jpg">
+        <link rel="stylesheet" type="text/css" href="assets/hobbies.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@200..700&family=Stack+Sans+Text:wght@200..700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <!-- Video background: place your video files under an "assets/" folder or update the src paths below. -->
+        <!-- Use muted autoplay+loop for background videos; mobile browsers may block autoplay unless muted. -->
+        <div class="video-bg" aria-hidden="true">
+            <video id="bg-video" autoplay muted loop playsinline poster="assets/Lucy.jpg">
+                    <source src="assets/yuta.mp4" type="video/mp4">
+                    <source src="assets/background.webm" type="video/webm">
+                    <!-- Fallback text shown only to very old browsers -->
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <!-- Subtle overlay between the video and content to improve text contrast -->
+            <div class="video-overlay" aria-hidden="true"></div>
+                <!-- Fallback text shown only to very old browsers -->
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <!-- Optional accessible description for screen reader users (visible only to assistive tech) -->
+        <div class="visually-hidden" id="bg-video-desc">Decorative looping background video: gentle abstract shapes and motion.</div>
+        <div class ="navigation">
+            <button onclick="location.href='aboutme.html'">Home</button>
+            <button onclick="location.href='hobbies.html'">Hobbies</button>
+            <button onclick="location.href='favourite.html'">Favourite</button>
+        </div>
+        <div class ="main">
+            <div class ="content">
+                <h1>My hobbies</h1>
+                <p>Playing Games (Mostly Online)</p>
+                <p>Watching Movies and Animes</p>
+                <p>Writing poems</p>
+                <p>Coding</p>
+            </div>
+        </div>
+    </body>
+</html>
